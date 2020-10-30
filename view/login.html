@@ -1,0 +1,21 @@
+<!-- Button to open the modal login form -->
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="../styles/login.css">
+</head>
+<div id=demo>
+<form id="frm_login">
+  <div class="container">
+    <label for="validation msg" id=validate_msg></label>
+    <label for="uname"><b>Username</b></label>
+    <input type="text" id="txt_uid" placeholder="Enter Username" name="uname" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" id="txt_pwd" placeholder="Enter Password" name="psw" required>
+    <button type="submit" id="but_submit">Login</button>
+  </div>
+  <script src="../js/login.js"></script>
+  <script src="../js/db_connect.js"></script>
+</form>
+</div>
+</html>
