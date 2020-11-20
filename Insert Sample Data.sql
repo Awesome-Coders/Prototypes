@@ -1,0 +1,41 @@
+delete from kappal_fuels.view;
+insert into kappal_fuels.view values("home","home page of the application");
+insert into kappal_fuels.view values("product","product page of the application");
+insert into kappal_fuels.view values("supplier","supplier page of the application");
+insert into kappal_fuels.view values("sale","sales page of the application");
+insert into kappal_fuels.view values("expense","expense page of the application");
+insert into kappal_fuels.view values("admin","admin page of the application");
+insert into kappal_fuels.view values("salary","salary page of the application");
+insert into kappal_fuels.view values("***","all pages of the application");
+insert into kappal_fuels.view values("reports","reports page of the application");
+select * from kappal_fuels.view;
+
+delete from kappal_fuels.user_roles;
+insert into kappal_fuels.user_roles(role_id,role_desc) values("employee","last level employee who has basic access");
+insert into kappal_fuels.user_roles(role_id,role_desc) values("admin","top level manager who has all access to system");
+insert into kappal_fuels.user_roles(role_id,role_desc) values("supervisor","An employee who has basic acccess and able to produce audit reports");
+insert into kappal_fuels.user_roles(role_id,role_desc) values("auditor","An outsider who has acccess to produce audit reports");
+select * from kappal_fuels.user_roles;
+
+delete from kappal_fuels.user_permission;
+insert into kappal_fuels.user_permission(role_id,view_id) values("auditor","reports");
+insert into kappal_fuels.user_permission(role_id,view_id) values("supervisor","home");
+insert into kappal_fuels.user_permission(role_id,view_id) values("supervisor","expense");
+insert into kappal_fuels.user_permission(role_id,view_id) values("supervisor","product");
+insert into kappal_fuels.user_permission(role_id,view_id) values("supervisor","reports");
+insert into kappal_fuels.user_permission(role_id,view_id) values("supervisor","sale");
+insert into kappal_fuels.user_permission(role_id,view_id) values("supervisor","supplier");
+insert into kappal_fuels.user_permission(role_id,view_id) values("admin","***");
+insert into kappal_fuels.user_permission(role_id,view_id) values("employee","home");
+insert into kappal_fuels.user_permission(role_id,view_id) values("employee","expense");
+insert into kappal_fuels.user_permission(role_id,view_id) values("employee","product");
+insert into kappal_fuels.user_permission(role_id,view_id) values("employee","sale");
+insert into kappal_fuels.user_permission(role_id,view_id) values("employee","supplier");
+select * from kappal_fuels.user_permission;
+
+delete from kappal_fuels.user;
+insert into kappal_fuels.user(user_id,role_id,password,email,first_name,middle_name,last_name,phone) values("vjo","employee","vjo","veerajothi.durairaj@gmail.com","Veerajothi","","Durairaj","+918056156916");
+insert into kappal_fuels.user(user_id,role_id,password,email,first_name,middle_name,last_name,phone) values("sbu","admin","sbu","sekar.psg@gmail.com","Subramaniam","","Venkatajalam","+919003135553");
+insert into kappal_fuels.user(user_id,role_id,password,email,first_name,middle_name,last_name,phone) values("sbh","supervisor","sbh","subbiah.ramanathan@outlook.com","Subbiah","","Ramanathan","+916383413590");
+insert into kappal_fuels.user(user_id,role_id,password,email,first_name,middle_name,last_name,phone) values("sth","auditor","sth","vlaxminarayanan@gmail.com","Lakshmi","Narayanan","Venkatajalam","+916385078780");
+select * from kappal_fuels.user;
