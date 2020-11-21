@@ -1,30 +1,39 @@
 const { app, BrowserWindow } = require('electron')
-var con;
-var  mysqlcon
-var  db_con = require('./js/db_connect.js');
+const  path = require('path')
+//const  url = require('url');
 var win;
 
 function createWindow () {
   win = new BrowserWindow({
+    title: 'Kappal Fuels',
     webPreferences: {
-      nodeIntegration: true
-    }
+      nodeIntegration: true,
+      preload: `${__dirname}/preload.js`
+      // path.join(__dirname, 'preload.js'),
+       //`${__dirname}/preload.js`,
+      //preload: path.join(__dirname, './preload.js'),
+    },
+  });
+  win.maximize()
+  //win.setFullScreen(true);
 
-  })
-
-  win.loadFile('./view/login.html')
-
-  //win.loadURL(`file://${__dirname}/view/login.html`)
-  win.webContents.openDevTools()
+  win.loadURL(path.join(__dirname, './view/DBD/BS3/login.html'))
+  // win.loadURL(url.format({
+  //   pathname: path.join(__dirname, './view/login.html'),
+  //   protocol: 'file:',
+  //   slashes: true
+  // }));
+  win.webContents.openDevTools();
 }
 
-app.whenReady().then(createWindow)
-
+app.whenReady().then(createWindow);
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
-  var  con_close = require('./js/db_close.js');
-})
+  //const db_close = require('./js/db_close.js');
+  //db_close.close(db_con.obj);
+});
 
-//process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
+// module.exports=win
+// window.win =win
