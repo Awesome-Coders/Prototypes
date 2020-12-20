@@ -1,31 +1,51 @@
-//let  $ = require('jquery');
+"use strict";
+
+// require path to load new page
 const path = require('path')
-const fs = require('fs')
 
-$("#frm_login" ).submit(function( event ) {
-  let user_id ='';
-  let password ='';
-  var role="";
-  user_id = $("#txt_uid").val();
-  password = $("#txt_pwd").val();
-  const User = require('../js/validate_user.js');
-  var usrobj=new User(user_id,password,"",false);
-  var usrobjreturns=usrobj.validate( function (data) {
-    role=data.role;
-    console.log(data.role);
-    console.log(data.result);
-    if(data.result) {
-      const Role = require('../js/role.js');
-      var roleobj=new Role(data.role);
-      var permissions=roleobj.get_permission( function (role_data) {
-        //write to config file
-        fs.writeFile("user-config.txt", data, (err) => {
-          if (err)
-          console.log(err);
+//require db connection
+const con=require('../js/db_connect');
 
-        });
-      })
-      window.location.replace(path.join(__dirname, './appmain.html'));
-    }
-  })
-})
+//focus the cursor on userid field
+$("#txt_uid").focus();
+
+var ipcRenderer = require('electron').ipcRenderer;
+var remote = require('electron').remote;
+
+//on submission of the login form
+$("#frm_login" ).submit( (event) => {
+  event.preventDefault();
+  let user_id = $("#txt_uid").val();
+  let password = $("#txt_pwd").val();
+  validate(user_id,password);
+});
+
+// function to validate the given user id and password
+function validate(user,pass) {
+  if(con==undefined) {
+    console.log("Conection is not established yet");
+    return;
+  }
+  let query_str = "select * from kappal_fuels.user where user_id=? and password=?;";
+  con.query(query_str, [user, pass],process_con);
+}
+
+// process the db returns
+function process_con(err,data,fields) {
+  if (err) throw err;
+  if (!data.length) {
+    document.getElementById("validate_msg").innerHTML = '<p style="color:red">Invalid user id and  password</p>';
+    return;
+  }
+
+  data.every((row) => {
+    console.log("entering loop");
+    console.log(row);
+    remote.getGlobal('sharedObj').userrole=row.role_id;
+    ipcRenderer.send('global-vars');
+    return true;
+  });
+
+  window.location.replace(path.join(__dirname, './appmain.html'));
+  document.getElementById("validate_msg").innerHTML = '<p style="color:red">Invalid user id and  password</p>';
+}
