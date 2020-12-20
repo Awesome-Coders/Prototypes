@@ -12,8 +12,9 @@ ipcMain.on('global-vars', function(event) {
 
 function createWindow () {
   win = new BrowserWindow({
-    title: 'Kappal Fuels',
     show: false,
+    title: 'Kappal Fuels',
+    writable: true,
     backgroundColor: '#FFFFFF',
     webPreferences: {
       nodeIntegration: true,
