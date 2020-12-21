@@ -2,6 +2,7 @@
 
 // require path to load new page
 const path = require('path')
+let $=require('jquery');
 
 //require db connection
 const con=require('../js/db_connect');
@@ -41,11 +42,10 @@ function process_con(err,data,fields) {
   data.every((row) => {
     console.log("entering loop");
     console.log(row);
-    remote.getGlobal('sharedObj').userrole=row.role_id;
+    remote.getGlobal('sharedObj').userrole=row.user_group;
     ipcRenderer.send('global-vars');
     return true;
   });
 
   window.location.replace(path.join(__dirname, './appmain.html'));
-  document.getElementById("validate_msg").innerHTML = '<p style="color:red">Invalid user id and  password</p>';
 }
