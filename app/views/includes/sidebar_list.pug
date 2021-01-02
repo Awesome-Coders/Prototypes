@@ -1,0 +1,8 @@
+div(class="sidebar" data-color="blue" data-image="assets/img/sidebar-2.jpg")
+    div(class="sidebar-wrapper")
+        ul(class="nav")
+            each val, index in !{sidebar_views}
+                li(class="active")
+                    a(href="product.html")
+                        i(class= !{sidebar_icons}[index])
+                        p= val

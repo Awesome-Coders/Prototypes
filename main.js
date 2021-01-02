@@ -1,38 +1,60 @@
-"use strict"
-const { app, BrowserWindow } = require('electron')
-const  path = require('path')
+const {
+	app,
+	BrowserWindow
+} = require("electron");
 
-var win;
+const path = require("path");
 
-var ipcMain = require('electron').ipcMain;
-global.sharedObj = {userrole: "test"};
-ipcMain.on('global-vars', function(event) {
-  console.log(global.sharedObj.userrole);
+const locals = {
+	require: require
+	/* ...*/
+};
+const setupPug = require("electron-pug");
+
+global.sharedObj = {
+	userrole: "test"
+};
+
+var ipcMain = require("electron").ipcMain;
+
+ipcMain.on("global-vars", function() {
+	console.log(global.sharedObj.userrole);
 });
 
-function createWindow () {
-  win = new BrowserWindow({
-    show: false,
-    title: 'Kappal Fuels',
-    writable: true,
-    backgroundColor: '#FFFFFF',
-    webPreferences: {
-      nodeIntegration: true,
-      enableRemoteModule: true
-    },
-  });
-  win.maximize();
-  win.loadURL(path.join(__dirname, './view/DBD/BS3/login.html'))
-  win.webContents.openDevTools();
-  win.once('ready-to-show',()=>{
-    win.show();
-  });
-}
+var win;
+app.on("ready", async () => {
+	try {
+		await setupPug({
+			pretty: true
+		}, locals);
+	} catch (err) {
+		// Could not initiate 'electron-pug'
+		console.log("Could not initiate 'electron-pug'");
+	}
+	win = new BrowserWindow({
+		show: false,
+		title: "Kappal Fuels",
+		writable: true,
+		backgroundColor: "#FFFFFF",
+		webPreferences: {
+			nodeIntegration: true,
+			enableRemoteModule: true
+		},
+	});
+	win.maximize();
 
-app.whenReady().then(createWindow);
+	/*global __dirname*/
+	win.loadURL(path.join(__dirname, "./app/views/login.pug"));
+	win.webContents.openDevTools();
+	win.once("ready-to-show", () => {
+		win.show();
+	});
+});
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+app.on("window-all-closed", () => {
+	/*global process*/
+	if (process.platform !== "darwin") {
+		win = null;
+		app.quit();
+	}
 });

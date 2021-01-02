@@ -1,0 +1,45 @@
+//output:$login.html
+doctype html
+html
+		include includes/head.pug
+		body
+				div(id='wrapper' class='wrapper')
+					div(data-image="assets/img/sidebar-2.jpg" class="sidebar" data-color="blue")
+						div(class='sidebar-wrapper')
+							ul(class='nav')
+								li(class='active')
+									a(href='#')
+										i(class='pe-7s-unlock')
+										p Sign in
+					div(id='main-panel' class='main-panel')
+						nav(class='navbar navbar-default navbar-fixed')
+							div(class='container-fluid')
+								div(class='navbar-header')
+									button(class='navbar-toggle' type='button' data-toggle='collapse' data-target='#navigation-example-2')
+										span(class='sr-only') Toggle navigation
+										span(class='icon-bar')
+										span(class='icon-bar')
+										span(class='icon-bar')
+									a(class='navbar-brand' href='#') Authentication
+								div(class='collapse navbar-collapse')
+									ul(class='nav navbar-nav navbar-right')
+										li
+											a(href="#" id="close")
+												p Close
+												script(src="../js/close.js")
+						div(id='content' class='content')
+							div(id='container-fluid1' class='container-fluid')
+								div(id='row' class='row')
+									form(id='frm_login')
+										div(id='container' class='container')
+											div(id='row1' class='row1')
+												label(for='validation msg' id='validate_msg')
+											div(class='row2')
+												label(for='uname') Username
+												input(id='txt_uid' type='text' placeholder='Enter Username' name='uname' required)
+											div(class='row3')
+												label(for='psw') Password
+												input(id='txt_pwd' type='password' placeholder='Enter Password' name='psw' required)
+											div(class='row4')
+												button(id='but_submit' type='submit') Login
+		script(src="../js/login.js")
