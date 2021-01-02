@@ -1,0 +1,45 @@
+{
+    "admin": {
+        "sidebar": {
+            "suppliers": true,
+            "products": true,
+            "sales": true,
+            "expense": true,
+            "reports": true,
+            "user_management": true
+        }
+    },
+
+    "supervisor": {
+        "sidebar": {
+            "suppliers": true,
+            "products": true,
+            "sales": true,
+            "expense": true,
+            "reports": true,
+            "user_management": false
+        }
+    },
+
+    "employee": {
+        "sidebar": {
+            "suppliers": true,
+            "products": true,
+            "sales": true,
+            "expense": true,
+            "reports": false,
+            "user_management": false
+        }
+    },
+
+    "auditor": {
+        "sidebar": {
+            "suppliers": false,
+            "products": false,
+            "sales": false,
+            "expense": false,
+            "reports": true,
+            "user_management": true
+        }
+    }
+}

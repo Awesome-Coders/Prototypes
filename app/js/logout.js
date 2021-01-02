@@ -1,12 +1,9 @@
-var remote = require("electron").remote;
-var $=require("jquery");
-var path = require("path");
+/*global __dirname, $,  path, remote */
 
 $("#logout").on("click", event => {
 	event.preventDefault();
-	if(remote.getGlobal("sharedObj") !== "undefined") {
-		remote.getGlobal("sharedObj").userrole=null;
+	if (remote.getGlobal("sharedObj") !== "undefined") {
+		remote.getGlobal("sharedObj").userrole = null;
 	}
-	/*global __dirname*/
 	window.location.replace(path.join(__dirname, "./login.pug"));
 });

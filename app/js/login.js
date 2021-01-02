@@ -1,21 +1,10 @@
-// require path to load new page
-const path = require("path");
+/*global __dirname, $, con, ipcRenderer, remote, path  */
 
-if ($ === "undefined") {
-	var $ = require("jquery");
-}
-
-//require db connection
-const con = require("../js/db_connect");
-
-document.getElementById("txt_uid").value="vjo";
-document.getElementById("txt_pwd").value="vjo";
+document.getElementById("txt_uid").value = "vjo";
+document.getElementById("txt_pwd").value = "vjo";
 
 //focus the cursor on userid field
-$("#but_submit").focus();
-
-var ipcRenderer = require("electron").ipcRenderer;
-var remote = require("electron").remote;
+$("#txt_uid").focus();
 
 //on submission of the login form
 $("#frm_login").submit((event) => {
@@ -52,7 +41,5 @@ function process_con(err, data) {
 		return true;
 	});
 
-	/*global __dirname*/
-	/*eslint no-undef: "error"*/
 	window.location.replace(path.join(__dirname, "./appmain.pug"));
 }

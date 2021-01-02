@@ -1,16 +1,13 @@
-var mysql = require('mysql');
+const mysql = require("mysql");
 
-var con = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'password',
-  // debug : true,
-  // connectionLimit: 4,
-  // multipleStatements: true
+var connectionObj = mysql.createConnection({
+	host: "localhost",
+	user: "root",
+	password: "password"
 });
 
-con.connect(function(err) {
-    if (err) throw err;
+connectionObj.connect(function(err) {
+	if (err) throw err;
 });
 
-module.exports = con;
+module.exports = connectionObj;
